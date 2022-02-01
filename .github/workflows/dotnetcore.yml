@@ -6,13 +6,17 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet: [ '2.1', '5.0.x', '6.0.x' ]
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 2.1.802
+        dotnet-version: ${{ matrix.dotnet-version }}
+        include-prerelease: true
     - name: Build with dotnet
       run: |
         cd CourseApp 
