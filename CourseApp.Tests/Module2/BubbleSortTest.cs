@@ -37,8 +37,6 @@ namespace CourseApp.Tests.Module2
             // assert
             var output = stringWriter.ToString().Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
             Assert.Equal($"{expected}", output[0]);
-
-            standardOutput.AutoFlush = true;
             Console.SetOut(standardOutput);
             Console.SetIn(standardIn);
         }
