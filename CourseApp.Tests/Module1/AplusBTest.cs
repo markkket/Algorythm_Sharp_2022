@@ -5,8 +5,18 @@ using CourseApp.Module1;
 
 namespace CourseApp.Tests.Module1
 {
-    public class AplusBTest
+    [Collection("Sequential")]
+    public class AplusBTest : IDisposable
     {
+        public void Dispose()
+        {
+            var standardOut = new StreamWriter(Console.OpenStandardOutput());
+            standardOut.AutoFlush = true;
+            var standardIn = new StreamReader(Console.OpenStandardInput());
+            Console.SetOut(standardOut);
+            Console.SetIn(standardIn);
+        }
+
         [Theory]
         [InlineData("10 12", "22")]
         [InlineData("1 1", "2")]
@@ -26,10 +36,6 @@ namespace CourseApp.Tests.Module1
             var output = stringWriter.ToString().Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
             Assert.Equal($"{expected}", output[0]);
             var standardOutput = new StreamWriter(Console.OpenStandardOutput());
-            standardOutput.AutoFlush = true;
-            Console.SetOut(standardOutput);
-            var standardIn = new StreamReader(Console.OpenStandardInput());
-            Console.SetIn(standardIn);
         }
     }
 }
